@@ -1,0 +1,49 @@
+
+<ion-view view-title="Online Resource Reservation System">
+    
+    <ion-content>
+        
+      <div class="bar bar-subheader bar-stable static text-center">
+            <strong class="title">Login Details</strong>
+        </div>
+        <form name="form">
+            <div class="list" style="padding-left: 20%; padding-right: 20%">
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Personal No.</span>
+                    <input type="text" placeholder="Personal No." ng-model="user.username" id="un" required autofocus>
+                    <input type="hidden" ng-model="user.name">
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Password</span>
+                    <input type="password" placeholder="Password" ng-model="user.password" id="pwd" required>
+                </label>
+                <button type="submit" ng-disabled="form.$invalid" ng-click="login()" class="button button-balanced" style="margin-top: 2%; margin-left:45%">Login</button>
+            </div>
+        </form>
+        <script id="my-modal.html" type="text/ng-template">
+           
+                <ion-modal-view>
+                    <ion-header-bar>
+                        <h1 class="title">Online Resource Reservation System</h1>
+                    </ion-header-bar>
+                    <ion-content class="padding">
+                        <div class="item item-text-wrap">
+                            <b>Dear {{user.name}}</b><br /><br />
+                            Welcome !<br />
+                            We have made great strides towards improving the system for user satistfaction and we intend to continue and expand this effort as we move forward.<br />
+                            In our effort for bettering the existing systems, we have introduced an Online Reservation System for the conference rooms and other resources at Information Technology Services (ITS).<br />
+                            These efforts are aimed at user satisfaction and we welcome your suggestions to make the system more effective and user friendly.<br /><br />
+                            <b>
+                                Team,<br />
+                                Information Technology Services (ITS)
+                            </b>
+                        </div>
+                        <div style="margin-left: 45%;margin-top:1.5%">
+                                <button type="submit" class="button button-bar-calm" ng-click="closeModal()">OK</button>
+                        </div>
+                        
+                    </ion-content>
+                </ion-modal-view>
+            </script>
+</ion-content>
+</ion-view>

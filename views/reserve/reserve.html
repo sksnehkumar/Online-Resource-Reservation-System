@@ -1,0 +1,100 @@
+<ion-view view-title="Reserve Resource">
+    <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button class="button button-icon button-clear ion-person" ng-click="actionSheet()"></button>
+    </ion-nav-buttons>
+    <ion-content>
+        <div class="bar bar-subheader bar-stable static text-center">
+            <strong class="title">Reservation Details</strong>
+        </div>
+        <form name="form" ng-model="reserveform">
+            <div class="list">
+                <br />
+                <label class="item item-input item-select" style="border-bottom: solid 1px #ccc;">
+                    <label style="color:silver;margin-top:1em" ng-show="reserve.resource==''">
+                        Resource
+                    </label>
+                    <label style="color:black;margin-top:-2em;font-size:medium" ng-show="reserve.resource!=''">
+                        Resource
+                    </label>
+                    <select ng-options="item.rname for item in resources" ng-model="reserve.resource">
+                    </select>
+                </label>
+                <h4 ng-if="reserve.resource!=''" style="text-align:center"><br />Reservations for {{reserve.resource.rname}}</h4>
+                <ul ng-repeat="entry in bookings" ng-model="reserve.entries" ng-if="reserve.resource!=''" style="text-align:center">
+                    <b>
+                    <li ng-show="(entry.resource==reserve.resource.rname) && deletable({{bookings.indexOf(entry)}})">
+                        {{entry.startdate+' '+'-'+' '+entry.enddate}};
+                        {{entry.starttime+' '+'-'+' '+entry.endtime}};
+                    </li>
+                    </b>
+                </ul>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Purpose</span>
+                    <input type="text" placeholder="Purpose" ng-model="reserve.purpose" autofocus>
+                </label>
+                
+                
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Strength</span>
+                    <input type="text" id="strength" placeholder="Strength" ng-model="reserve.strength">
+                </label>
+                <label class="item item-input item-floating-label" style="margin-bottom:1em;">
+                    <span class="input-label">Remarks</span>
+                    <textarea style="margin-top:0.5em" placeholder="Remarks" ng-model="reserve.remarks"></textarea>
+                </label>
+                <label class="item item-input item-stacked-label" style="border-bottom: solid 1px #ccc;">
+                    <label style="color:white; font-size:medium" ng-if="datepicker.dateSD==''">
+                        Start Date
+                    </label>
+                    <label style="font-size:medium" ng-if="datepicker.dateSD!=''">
+                        Start Date
+                    </label>
+                    <ionic-datepicker input-obj="datepickerStartDate">
+                        <input type="text" ng-model="datepicker.dateSD" placeholder="Start Date">
+                    </ionic-datepicker>
+                </label>
+                
+                <label class="item item-input item-stacked-label" style="border-bottom: solid 1px #ccc;">
+                    <label style="color:white; font-size:medium" ng-if="datepicker.dateED==''">
+                        End Date
+                    </label>
+                    <label style="font-size:medium" ng-if="datepicker.dateED!=''">
+                        End Date
+                    </label>
+                    <ionic-datepicker input-obj="datepickerEndDate">
+                        <input type="text" ng-model="datepicker.dateED" placeholder="End Date">
+                    </ionic-datepicker>
+                </label>
+                <label class="item item-input item-stacked-label" style="border-bottom: solid 1px #ccc;">
+                    <label style="color:white; font-size:medium" ng-if="timepicker.timeST==''">
+                        Start Time
+                    </label>
+                    <label style="font-size:medium" ng-if="timepicker.timeST!=''">
+                        Start Time
+                    </label>
+                    <ionic-timepicker input-obj="timePickerStartTime">
+                        <input type="text" ng-model="timepicker.timeST" placeholder="Start Time">
+                    </ionic-timepicker>
+                </label>
+                <label class="item item-input item-stacked-label" style="border-bottom: solid 1px #ccc;">
+                    <label style="color:white; font-size:medium" ng-if="timepicker.timeET==''">
+                        End Time
+                    </label>
+                    <label style="font-size:medium" ng-if="timepicker.timeET!=''">
+                        End Time
+                    </label>
+                    <ionic-timepicker input-obj="timePickerEndTime">
+                        <input type="text" ng-model="timepicker.timeET" placeholder="End Time">
+                    </ionic-timepicker>
+                </label>
+                <button ng-model="reserve.reset" ng-disabled="(reserve.purpose=='')&&(reserve.resource=='')&&(datepicker.dateED=='')&&(datepicker.dateSD=='')&&(reserve.strength=='')&&(reserve.remarks=='')&&(timepicker.timeET=='')&&(timepicker.timeST=='')" class="button button-calm" ng-click="reset()" style="margin-left: 40%;margin-top:2%;float:left">Reset</button>
+                <button type="submit" ng-model="reserve.submit" ng-disabled="(reserve.purpose=='')||(reserve.resource=='')||(datepicker.dateED=='')||(datepicker.dateSD=='')||(reserve.strength=='')||(timepicker.timeET=='')||(timepicker.timeST=='')" class="button button-balanced" ng-click="makeReservation()" style="margin-left: 5%;margin-top:2%;clear:both">Submit</button>
+            </div>
+        </form>
+        <br /><br />
+</ion-content>
+   
+</ion-view>

@@ -1,0 +1,77 @@
+<ion-view view-title="Lookup Reservations">
+    <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button class="button button-icon button-clear ion-person" ng-click="actionSheet()"></button>
+    </ion-nav-buttons>
+    <ion-content>
+        <div class="bar bar-subheader bar-stable static text-center">
+            <strong class="title">Filters</strong>
+        </div>
+        <form name="filterform" ng-model="form">
+            <div class="list" style="margin-left:4%;width:40%;float:left">
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Purpose</span>
+                    <input type="text" ng-model="search.purpose" placeholder="Purpose">
+                </label>
+                <br />
+                <label class="item item-input item-select" style="border-bottom: solid 1px #ccc;">
+                    <label style="color:silver;margin-top:1em" ng-show="search.resource==''">
+                        Resource
+                    </label>
+                    <label style="color:black;margin-top:-2em;font-size:medium" ng-show="search.resource!=''">
+                        Resource
+                    </label>
+                    <select ng-model="search.resource" ng-options="res.rname for res in resources" style="width:50%"></select>
+
+                </label>
+            </div>
+            <div class="list" style="margin-right:4%;width:40%;float:right">
+                <label class="item item-input item-stacked-label" style="border-bottom: solid 1px #ccc;">
+                    <label style="color:white; font-size:medium" ng-if="date.dateSD==''">
+                        Start Date
+                    </label>
+                    <label style="font-size:medium" ng-if="date.dateSD!=''">
+                        Start Date
+                    </label>
+                    <ionic-datepicker input-obj="datepickerStartDate">
+                        <input type="text" ng-model="date.dateSD" placeholder="Start Date" required>
+                    </ionic-datepicker>
+                </label>
+                <label class="item item-input item-stacked-label" style="border-bottom: solid 1px #ccc;">
+                    <label style="color:white; font-size:medium" ng-if="date.dateED==''">
+                        End Date
+                    </label>
+                    <label style="font-size:medium" ng-if="date.dateED!=''">
+                        End Date
+                    </label>
+                    <ionic-datepicker input-obj="datepickerEndDate">
+                        <input type="text" ng-model="date.dateED" placeholder="End Date" required>
+                    </ionic-datepicker>
+                </label>
+            </div>
+            <div style="margin-top:2%;padding-left:45%;clear:both">
+                <button class="button button-calm" ng-model="clear" ng-disabled="search.purpose==''&&search.resource==''&&date.dateED==''&&date.dateSD==''" ng-click="cf()">Clear Filters</button>
+            </div>
+        </form>
+            <div class="bar bar-subheader bar-stable static text-center" style="margin-top:1em;clear:both">
+                <strong class="title">Reservations</strong>
+            </div>
+            <div class="list" ng-repeat="item in bookings | filter: {purpose: search.purpose, startdate: date.dateSD, enddate: date.dateED, pno: search.pno, resource: search.resource.rname}| orderBy:'startdate'" style="padding-left:10%;float:left">
+                <div class="item item-avatar">  
+                    <div class="item item-icon-left" style="width:400px">
+                        <i class="icon ion-calendar"></i>
+                        <h2>{{item.purpose}}</h2>
+                        <h3>{{item.resource}}</h3>
+                        <p>{{item.startdate +' ' +' - '+ item.enddate}}</p>
+                        <p>{{item.starttime+' '+'-'+' '+ item.endtime}}</p>
+                        <div ng-repeat="user in persons">
+                            <p ng-if="user.pno == item.pno">{{item.pno}} {{user.pname}}</p>
+                        </div>
+                    </div>
+            </div>
+            </div>
+</ion-content>
+
+</ion-view>
